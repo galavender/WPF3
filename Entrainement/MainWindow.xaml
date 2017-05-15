@@ -5,8 +5,43 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Entrainement"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        
-    </Grid>
+        Title="MainWindow" Height="300" Width="350" MinHeight="280" MinWidth="320">
+    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+        <!--<Button FontSize="20"  Content="WPF c'est super !" Margin="0,10,0,0"
+                HorizontalAlignment="Center" VerticalAlignment="Top"
+                HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Padding="5"/>-->
+
+        <Button FontSize="16"  Content="Ok" Height="30" Width="100"/>
+
+
+        <Button FontSize="16"  Content="Annuler" Height="30" Width="100" Margin="10"/>
+    </StackPanel>
+
+    <!--<Grid Margin="5">
+        --><!-- Création de 4 lignes --><!--
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        --><!-- Création de 2 colonnes --><!--
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*" MinWidth="120"/>
+            <ColumnDefinition Width="3*"/>
+        </Grid.ColumnDefinitions>
+
+        --><!-- Ligne 0 --><!--
+        <Label Content="Nom" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+        <TextBox Grid.Column="1" Margin="10,15,10,15" VerticalContentAlignment="Center" Padding="5" Height="30"/>
+        --><!-- Ligne 1 --><!--
+        <Label Content="Prénom" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+        <TextBox Grid.Row="1" Grid.Column="1" Margin="10,15,10,15" VerticalContentAlignment="Center" Padding="5"  Height="30"/>
+        --><!-- Ligne 2 --><!--
+        <Label Content="Date de naissance" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+        <DatePicker Grid.Row="2" Grid.Column="1" Margin="10,15,10,15" VerticalContentAlignment="Center" Padding="5"  Height="30" />
+        --><!-- Ligne 3 --><!--
+        <Button Content="Valider" Grid.Row="3" Grid.Column="1" Width="100" Height="30"/>
+    </Grid>-->
+
 </Window>

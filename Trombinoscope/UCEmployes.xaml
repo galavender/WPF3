@@ -1,0 +1,63 @@
+﻿<UserControl x:Class="Trombinoscope.UCEmployes"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Trombinoscope"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid Name="DocPa">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+
+        <Image Source="pack://application:,,,/Images/img.jpg" Width="100" Margin="5"/>
+
+        <ListView Grid.Row="1" Grid.RowSpan="2" ItemsSource="{Binding}" IsSynchronizedWithCurrentItem="True" >
+            <ListView.View>
+                <GridView AllowsColumnReorder="True">
+                    <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}"/>
+                    <GridViewColumn Header="Nom" DisplayMemberBinding="{Binding Nom}"/>
+                    <GridViewColumn Header="Prenom" DisplayMemberBinding="{Binding Prenom}"/>
+
+                    <GridViewColumn Header="Manager">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <DockPanel>
+                                    <TextBlock Text="{Binding NomManager, StringFormat=' {0} '}"  />
+                                    <TextBlock Text="{Binding PrenomManager}"/>
+                                </DockPanel>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+
+
+        <ListView Name="Lst" ItemsSource="{Binding LstTerritoires}" Grid.Column="1" Grid.Row="2">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Id Territoire" DisplayMemberBinding="{Binding Id}"/>
+
+                    <GridViewColumn Header="Description Territoire" DisplayMemberBinding="{Binding Description}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+        <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Right" Margin="5">
+            <TextBlock>Nombre de territoires :</TextBlock>
+            <TextBlock Text="{Binding Path=LstTerritoires.Count}" Margin="2"/>
+        </StackPanel>
+
+
+    </Grid>
+</UserControl>

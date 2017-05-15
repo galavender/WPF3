@@ -1,0 +1,72 @@
+﻿<UserControl x:Class="OptionWord.UCGénéral"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:OptionWord"
+             mc:Ignorable="d" 
+             d:DesignHeight="500" d:DesignWidth="700">
+    <ScrollViewer>
+        <DockPanel>
+            <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
+                <StaticResource ResourceKey="ImgUti" />
+               
+                <TextBlock>Options générales d'utilisation de Word</TextBlock>
+            </StackPanel>
+            <TextBlock DockPanel.Dock="Top" Style="{StaticResource StyleEnTete}">Options d'interface utilisateur</TextBlock>
+
+            <CheckBox DockPanel.Dock="Top" Content="Afficher la mini barre d'outils lors de la sélection" IsChecked="True"/>
+            <CheckBox DockPanel.Dock="Top" Content="Activer l'apperçu instantané"/>
+            <CheckBox DockPanel.Dock="Top" Content="Mettre à jour le contenu des documents pendant leur déplacement"/>
+            <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+                <TextBlock>Style d'info-bulle :</TextBlock>
+                <ComboBox Style="{StaticResource StyleBouton2}">
+                    <ComboBoxItem IsSelected="True">Afficher les description des fonctionnalité dans des info-bulles</ComboBoxItem>
+                </ComboBox>
+            </StackPanel>
+            <TextBlock DockPanel.Dock="Top" Style="{StaticResource StyleEnTete}">Personnaliser votre suite de programmes Microsoft Office</TextBlock>
+            <Grid DockPanel.Dock="Top">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="120"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <TextBlock>Nom d'utilisateur :</TextBlock>
+                <TextBox Grid.Column="1" Width="200" HorizontalAlignment="Left"></TextBox>
+
+                <TextBlock Grid.Row="1">Initiales :</TextBlock>
+                <TextBox Grid.Row="1" Grid.Column="1" Width="70" HorizontalAlignment="Left"></TextBox>
+
+                <CheckBox Grid.Row="2" Grid.ColumnSpan="2">Toujours utiliser ces valeurs, quelle que soit l'état de connexion d'Office</CheckBox>
+
+                <TextBlock Grid.Row="3">Arrière-plan Office :</TextBlock>
+                <ComboBox Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left">
+                    <ComboBoxItem IsSelected="True">Aucun arrière-plan</ComboBoxItem>
+                </ComboBox>
+
+                <TextBlock Grid.Row="4">Thème Office :</TextBlock>
+                <ComboBox Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left">
+                    <ComboBoxItem IsSelected="True">En couleur</ComboBoxItem>
+                </ComboBox>
+
+            </Grid>
+            <TextBlock DockPanel.Dock="Top" Style="{StaticResource StyleEnTete}">Options de démarrage</TextBlock>
+            <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+                <TextBlock>Choisir les extensions que Word doit toujours ouvrir :</TextBlock>
+                <Button Style="{StaticResource StyleBouton2}">Programmes que vous souhaitez utiliser...</Button>
+            </StackPanel>
+            <CheckBox DockPanel.Dock="Top">Me prévenir si Word n'est pas toujours utilisé pour l'affichage et lamodification des documents</CheckBox>
+
+            <CheckBox DockPanel.Dock="Top">Ouvrir les pièces jointes et autres fichiers non modifiables en mode plein écran</CheckBox>
+            <CheckBox DockPanel.Dock="Top">Afficher l'écran de démarrage au lancement de l'application</CheckBox>
+
+        </DockPanel>
+    </ScrollViewer>
+</UserControl>
