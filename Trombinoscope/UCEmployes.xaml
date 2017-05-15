@@ -30,10 +30,10 @@
                     <GridViewColumn Header="Manager">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <DockPanel>
-                                    <TextBlock Text="{Binding NomManager, StringFormat=' {0} '}"  />
+                                <TextBlock>
+                                    <TextBlock Text="{Binding NomManager, StringFormat='\{0} '}"  />
                                     <TextBlock Text="{Binding PrenomManager}"/>
-                                </DockPanel>
+                                </TextBlock>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
