@@ -19,6 +19,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SaisieDeTaches", "SaisieDeT
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArchiMVVM", "C:\Users\glavender\Documents\WPF\ArchiMVVM\ArchiMVVM\ArchiMVVM.csproj", "{4778860A-13EE-412F-A3B1-18653A450ACC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Trombinoscope2", "Trombinoscope2\Trombinoscope2.csproj", "{391773DB-1F81-4E1F-9D22-94E783027C10}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CollectionsBandesDessinées", "CollectionsBandesDessinées\CollectionsBandesDessinées.csproj", "{8277BE4B-39D2-47B0-973D-8B0F16E5A960}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -57,6 +61,14 @@ Global
 		{4778860A-13EE-412F-A3B1-18653A450ACC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4778860A-13EE-412F-A3B1-18653A450ACC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4778860A-13EE-412F-A3B1-18653A450ACC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{391773DB-1F81-4E1F-9D22-94E783027C10}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{391773DB-1F81-4E1F-9D22-94E783027C10}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{391773DB-1F81-4E1F-9D22-94E783027C10}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{391773DB-1F81-4E1F-9D22-94E783027C10}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8277BE4B-39D2-47B0-973D-8B0F16E5A960}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8277BE4B-39D2-47B0-973D-8B0F16E5A960}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8277BE4B-39D2-47B0-973D-8B0F16E5A960}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8277BE4B-39D2-47B0-973D-8B0F16E5A960}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

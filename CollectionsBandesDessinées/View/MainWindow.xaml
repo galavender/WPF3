@@ -1,0 +1,66 @@
+﻿<Window x:Class="CollectionsBandesDessinées.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CollectionsBandesDessinées"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="500" Width="500">
+    <Window.Resources>
+        <local:StringToImageConverter x:Key="StringToImageConverter"/>
+
+        <AlternationConverter x:Key="BackgroundConverter">
+            <SolidColorBrush Color="Lavender"/>
+            <SolidColorBrush Color="White"/>
+        </AlternationConverter>
+
+        <Style x:Key="alternatingWithBinding" TargetType="{x:Type ListViewItem}">
+            <Setter Property="Background" 
+              Value="{Binding RelativeSource={RelativeSource Self},
+                     Path=(ItemsControl.AlternationIndex),
+                     Converter={StaticResource BackgroundConverter}}"/>
+        </Style>
+    </Window.Resources>
+    <DockPanel>
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button Name="BtnF" Width="35" Height="35" Content="| &#x25C4;" FontSize="20" Command="{Binding CmdFirst}" CommandParameter="F"/>
+            <Button Name="BtnP" Width="35" Height="35" Content="&#x25C4;" FontSize="20" Command="{Binding CmdPrevious}" CommandParameter="P"/>
+            <Button Name="BtnN" Width="35" Height="35" Content="&#x25BA;" FontSize="20" Command="{Binding CmdNext}" CommandParameter="N"/>
+            <Button Name="BtnL" Width="35" Height="35" Content="&#x25BA; |" FontSize="20" Command="{Binding CmdLast}" CommandParameter="L"/>
+        </StackPanel>
+
+        <Grid DockPanel.Dock="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="100"/>
+
+            </Grid.RowDefinitions>
+            <TextBlock Text="{Binding CollecBD/Nom}" Grid.Column="0" Grid.ColumnSpan="4" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20" Foreground="Blue"/>
+            <TextBlock Text="{Binding CollecBD/Albums.Count, StringFormat=' {0} albums'}" Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Right" FontWeight="Bold"/>
+            <Image Source="{Binding CollecBD/Nom, Converter={StaticResource StringToImageConverter}}" VerticalAlignment="Top" Grid.Row="1" Grid.RowSpan="5"/>
+            <TextBlock Grid.Column="1" Grid.Row="1" Text="Genres" FontWeight="Bold"/>
+            <ListBox Grid.Column="1" Grid.Row="2" BorderThickness="0" ItemsSource="{Binding CollecBD/Genres}" DisplayMemberPath="Libelle"/>
+            <ListBox Grid.Column="2" Grid.Row="2" BorderThickness="0" ItemsSource="{Binding CollecBD/Auteurs}" DisplayMemberPath="Nom"/>
+
+
+            <TextBlock Grid.Column="2" Grid.Row="1" Text="Auteurs" FontWeight="Bold"/>
+
+        </Grid>
+        <ListView ItemsSource="{Binding CollecBD/Albums}" ItemContainerStyle="{StaticResource alternatingWithBinding}" AlternationCount="2">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="N°" DisplayMemberBinding="{Binding Id}"/>
+                    <GridViewColumn Header="Année" DisplayMemberBinding="{Binding Année}"/>
+                    <GridViewColumn Header="Titre" DisplayMemberBinding="{Binding Titre}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </DockPanel>
+</Window>
