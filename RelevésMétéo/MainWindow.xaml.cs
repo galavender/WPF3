@@ -20,9 +20,10 @@ namespace RelevésMétéo
     /// </summary>
     public partial class MainWindow : Window
     {
-        public DALMeteo Météo { get; set; }
+        private DALMeteo Météo;
         public MainWindow()
         {
+            
             InitializeComponent();
             Météo = new DALMeteo();
             BtnPath.Click += BtnPath_Click;

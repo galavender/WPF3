@@ -25,7 +25,7 @@ namespace RelevésMétéo
         }
     }
 
-    public class DecimalToColorBrushConverter : IValueConverter
+    public class DoubleToColorBrushConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {

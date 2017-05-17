@@ -9,7 +9,7 @@
         Title="MainWindow" Height="350" Width="525" Name="window">
     <Window.Resources>
         <local:LstNameToDetailsNameConverter x:Key="LstNameToDetailsNameConverter"/>
-        <local:DecimalToColorBrushConverter x:Key="DecimalToColorBrushConverter"/>
+        <local:DoubleToColorBrushConverter x:Key="DoubleToColorBrushConverter"/>
         <sys:Double x:Key="PrécipitationSeuil">10</sys:Double>
         <Style TargetType="ListBoxItem">
             <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
@@ -17,7 +17,7 @@
             <Setter Property="Margin" Value="2"/>
             <Setter Property="BorderBrush" Value="Lavender"/>
             <Setter Property="Background" Value="{Binding Path=Précipitations, 
-                                Converter={StaticResource DecimalToColorBrushConverter}, 
+                                Converter={StaticResource DoubleToColorBrushConverter}, 
                                 ConverterParameter={StaticResource PrécipitationSeuil}}"/>
 
         </Style>
@@ -35,8 +35,8 @@
                 <TextBlock Text="{Binding Date, StringFormat='\{0:MM/yyyy}'}"/>
                 <TextBlock Text="{Binding TMax, StringFormat='&#x23F6;{0}°C'}" Grid.Column="1"/>
                 <TextBlock Text="{Binding TMin, StringFormat='&#x23F7;{0}°C'}" Grid.Column="1" Grid.Row="1"/>
-                <TextBlock Text="{Binding Précipitations, StringFormat='&#x263C; {0} mm'}" Grid.Column="2"/>
-                <TextBlock Text="{Binding Ensoleillement, StringFormat='&#x1F4A7; {0} mm'}" Grid.Column="2" Grid.Row="2"/>
+                <TextBlock Text="{Binding Précipitations, StringFormat='&#x1F4A7; {0} mm'}" Grid.Column="2"/>
+                <TextBlock Text="{Binding Ensoleillement, StringFormat='&#x263C; {0} h'}" Grid.Column="2" Grid.Row="2"/>
             </Grid>
         </DataTemplate>
         <DataTemplate x:Key="ListMétéo2">
@@ -46,12 +46,12 @@
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <TextBlock Grid.Column="0" Text="{Binding Date, StringFormat='\{0:MMMM}'}"/>
+                <TextBlock Grid.Column="0" Text="{Binding Date, StringFormat='\{0:MMMM/yyyy}', ConverterCulture='fr-FR'}"/>
                 <TextBlock Grid.Column="1" Text="{Binding TMin, StringFormat='Minimale : {0}°C'}"/>
                 <TextBlock Grid.Column="2" Text="{Binding TMax, StringFormat='Maximale : {0}°C'}"/>
             </Grid>
         </DataTemplate>
-        <UserControl x:Key="DétailVignettes">
+        <ContentControl x:Key="DétailVignettes">
             <Grid >
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
@@ -101,10 +101,10 @@
                     </TextBlock.Text>
                 </TextBlock>
             </Grid>
-        </UserControl>
+        </ContentControl>
 
     </Window.Resources>
-    <Grid>
+
         <DockPanel>
             <DockPanel DockPanel.Dock="Top">
                 <Button Name="BtnPath" Content="..." DockPanel.Dock="Right" Width="50"/>
@@ -118,19 +118,18 @@
                 </ComboBox>
             </StackPanel>
             <Grid DockPanel.Dock="Bottom" >
-                <UserControl Content="{StaticResource DétailVignettes}" Visibility="{Binding ElementName=CBMétéo, Path=SelectedValue, 
+                <ContentControl Content="{StaticResource DétailVignettes}" Visibility="{Binding ElementName=CBMétéo, Path=SelectedValue, 
                                                                                 Converter={StaticResource LstNameToDetailsNameConverter}, ConverterParameter='DétailVignettes'}"/>
 
                 <ContentControl Content="{Binding Data}" ContentTemplate="{StaticResource ListMétéo}" Visibility="{Binding ElementName=CBMétéo, Path=SelectedValue, 
-                                                                                Converter={StaticResource LstNameToDetailsNameConverter}, ConverterParameter='DétailsAnnées'}"/>
+                                                                                Converter={StaticResource LstNameToDetailsNameConverter}, ConverterParameter='ListMétéo'}"/>
             </Grid>
                 
 
-            <ScrollViewer>
                 <ListBox Name="LstBoxMétéo" ItemsSource="{Binding Data}" ItemTemplate="{StaticResource ListMétéo}" IsSynchronizedWithCurrentItem="True">
 
                 </ListBox>
-            </ScrollViewer>
+
         </DockPanel>
-    </Grid>
+
 </Window>

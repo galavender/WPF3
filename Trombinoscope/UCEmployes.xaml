@@ -20,7 +20,20 @@
 
         <Image Source="pack://application:,,,/Images/img.jpg" Width="100" Margin="5"/>
 
-        <ListView Grid.Row="1" Grid.RowSpan="2" ItemsSource="{Binding}" IsSynchronizedWithCurrentItem="True" >
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+
+            </Grid.RowDefinitions>
+            <Button Content="+" Width="30" Height="20" Command="{Binding CmdAjouter}" />
+            <Button Content="-" Width="30" Height="20" Grid.Column="1" Command="{Binding CmdSupprimer}"/>
+
+        </Grid>
+        <ListView Grid.Row="2"  ItemsSource="{Binding LstEmploye}" IsSynchronizedWithCurrentItem="True" >
             <ListView.View>
                 <GridView AllowsColumnReorder="True">
                     <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}"/>
@@ -43,7 +56,7 @@
 
 
 
-        <ListView Name="Lst" ItemsSource="{Binding LstTerritoires}" Grid.Column="1" Grid.Row="2">
+        <ListView Name="Lst" ItemsSource="{Binding LstEmploye/LstTerritoires}" Grid.Column="1" Grid.Row="2">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Id Territoire" DisplayMemberBinding="{Binding Id}"/>
@@ -55,7 +68,7 @@
 
         <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Right" Margin="5">
             <TextBlock>Nombre de territoires :</TextBlock>
-            <TextBlock Text="{Binding Path=LstTerritoires.Count}" Margin="2"/>
+            <TextBlock Text="{Binding Path=LstEmploye/LstTerritoires.Count}" Margin="2"/>
         </StackPanel>
 
 

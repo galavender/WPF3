@@ -1,0 +1,45 @@
+﻿<Window x:Class="SaisieDeTaches.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SaisieDeTaches"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="525">
+    <DockPanel>
+        <Expander DockPanel.Dock="Right" ExpandDirection="Left" BorderBrush="Lavender" BorderThickness="2">
+            <DockPanel >
+                <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
+                    <Button Content="+" Width="30" Height="30" Command="{Binding CmdAjouter}"/>
+                    <Button Content="&#x2212;" Width="30" Height="30" Command="{Binding CmdSupprimer}"/>
+                    <Button Content="&#x2713;" Width="30" Height="30" Command="{Binding CmdEnregistrer}"/>
+                    <Button Content="&#x21b6;" Width="30" Height="30" Command="{Binding CmdAnnuler}"/>
+                </StackPanel>
+                <DockPanel DockPanel.Dock="Top" Margin="5">
+                    <TextBlock DockPanel.Dock="Left">Tâche N°3</TextBlock>
+                    <TextBlock HorizontalAlignment="Right">crée le 17/01/2017</TextBlock>
+                </DockPanel>
+                <TextBlock DockPanel.Dock="Top" Margin="5">Echéance</TextBlock>
+                <DatePicker DockPanel.Dock="Top" Margin="5,0,5,5"/>
+                <DockPanel DockPanel.Dock="Top" Margin="5">
+                    <TextBlock Text="Priorité " DockPanel.Dock="Left"/>
+                    <TextBox Text="2" DockPanel.Dock="Left"/>
+                    <CheckBox Content="fait" HorizontalAlignment="Right"/>
+                </DockPanel>
+                <TextBox Text="Blabla" Width="250" Margin="5"/>
+            </DockPanel>
+        </Expander>
+        <TextBlock DockPanel.Dock="Top">Liste des tâches</TextBlock>
+        <ListView ItemsSource="{Binding Taches}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn DisplayMemberBinding="{Binding Id}" Header="Id"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Term}" Header="Echéance"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Prio}" Header="Priorité"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Fait}" Header="Fait"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Description}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </DockPanel>
+</Window>

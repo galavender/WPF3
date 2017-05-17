@@ -33,8 +33,8 @@ namespace Trombinoscope
                         emp.Image = ConvertBytesToImageSource((Byte[])reader["Photo"]);
                         emp.Nom = (string)reader["FirstName"];
                         emp.Prenom = (string)reader["LastName"];
-                        if(reader["FNManager"]!=DBNull.Value)
-                        emp.NomManager = (string)reader["FNManager"];
+                        if (reader["FNManager"] != DBNull.Value)
+                            emp.NomManager = (string)reader["FNManager"];
                         if (reader["LNManager"] != DBNull.Value)
                             emp.PrenomManager = (string)reader["LNManager"];
 
@@ -47,7 +47,6 @@ namespace Trombinoscope
             return lst;
 
         }
-
 
         private static ImageSource ConvertBytesToImageSource(Byte[] tab)
         {
@@ -129,6 +128,68 @@ namespace Trombinoscope
             return lst;
         }
 
+        public static void SupprimerEmploye(int empId)
+        {
+            var connectString = Properties.Settings.Default.Northwind;
+            string queryString = @"delete Employees where EmployeeID=@Id ";
+            var paramId = new SqlParameter("@Id", DbType.Int32);
+            paramId.Value = empId;
+
+
+            using (var connect = new SqlConnection(connectString))
+            {
+                connect.Open();
+                var tran = connect.BeginTransaction();
+
+                var command = new SqlCommand(queryString, connect, tran);
+                command.Parameters.Add(paramId);
+
+                try
+                {
+                    command.ExecuteNonQuery();
+                    tran.Commit();
+                }
+                catch (Exception)
+                {
+                    tran.Rollback();
+                    throw;
+                }
+            }
+        }
+        public static void InsertEmploye(Employé emp)
+        {
+            var connectString = Properties.Settings.Default.Northwind;
+            string queryString = @"insert Employees(LastName, FirstName) values(@nom, @prenom)";
+            var paramNom = new SqlParameter("@nom", DbType.String);
+            paramNom.Value = emp.Nom;
+            var paramPrenom = new SqlParameter("@prenom", DbType.String);
+            paramPrenom.Value = emp.Prenom;
+
+            using (var connect = new SqlConnection(connectString))
+            {
+                connect.Open();
+                var tran = connect.BeginTransaction();
+                var command = new SqlCommand(queryString, connect, tran);
+                command.Parameters.Add(paramNom);
+                command.Parameters.Add(paramPrenom);
+
+                try
+                {
+                    command.ExecuteNonQuery();
+                    tran.Commit();
+                }
+                catch (Exception)
+                {
+                    tran.Rollback();
+                    throw;
+                }
+
+
+                queryString = "select top 1 EmployeeID from Employees order by 1 desc";
+                command = new SqlCommand(queryString, connect);
+                emp.Id = (int)command.ExecuteScalar();
+            }
+        }
     }
 
 }
