@@ -24,6 +24,9 @@ namespace SaisieDeTaches
         {
             InitializeComponent();
             DataContext = new Contexte();
+
         }
+
+
     }
 }

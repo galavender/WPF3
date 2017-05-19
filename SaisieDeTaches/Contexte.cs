@@ -8,12 +8,19 @@ using System.Windows.Input;
 
 namespace SaisieDeTaches
 {
+    public enum ModesEdition
+    {
+        Consultation, Edition
+    }
+
     public class Contexte
     {
+        public ModesEdition ModeEdit { get; set; }
         public ObservableCollection<Tache> Taches { get; private set; }
         public Contexte()
         {
-            Taches =new  ObservableCollection<Tache>(AccesDonnes.ChargerTaches());
+            Taches = new ObservableCollection<Tache>(AccesDonnes.ChargerTaches());
+            ModeEdit = ModesEdition.Consultation;
         }
 
 
@@ -24,7 +31,7 @@ namespace SaisieDeTaches
             get
             {
                 if (_cmdSupprimer == null)
-                    _cmdSupprimer = new RelayCommand(SupprimerTache);
+                    _cmdSupprimer = new RelayCommand(SupprimerTache, ActiverConsultation);
 
                 return _cmdSupprimer;
             }
@@ -32,7 +39,7 @@ namespace SaisieDeTaches
 
         private void SupprimerTache(object parameter)
         {
-        
+
         }
 
 
@@ -43,7 +50,7 @@ namespace SaisieDeTaches
             get
             {
                 if (_cmdAjouter == null)
-                    _cmdAjouter = new RelayCommand(AjouterTache);
+                    _cmdAjouter = new RelayCommand(AjouterTache, ActiverConsultation);
 
                 return _cmdAjouter;
             }
@@ -51,9 +58,10 @@ namespace SaisieDeTaches
 
         private void AjouterTache(object parameter)
         {
-
+            var task = new Tache { Id = Taches.Count + 1, Creation = DateTime.Today, Term = DateTime.Today, Prio = 1 };
+            Taches.Add(task);
+            ModeEdit = ModesEdition.Edition;
         }
-
 
         private ICommand _cmdEnregistrer;
 
@@ -62,7 +70,7 @@ namespace SaisieDeTaches
             get
             {
                 if (_cmdEnregistrer == null)
-                    _cmdEnregistrer = new RelayCommand(EnregistrerTache);
+                    _cmdEnregistrer = new RelayCommand(EnregistrerTache, ActiverEdition);
 
                 return _cmdEnregistrer;
             }
@@ -70,7 +78,8 @@ namespace SaisieDeTaches
 
         private void EnregistrerTache(object parameter)
         {
-
+            AccesDonnes.EnregistrerTaches(Taches.ToList());
+            ModeEdit = ModesEdition.Consultation;
         }
 
 
@@ -81,7 +90,7 @@ namespace SaisieDeTaches
             get
             {
                 if (_cmdAnnuler == null)
-                    _cmdAnnuler = new RelayCommand(AnnulerTache);
+                    _cmdAnnuler = new RelayCommand(AnnulerTache, ActiverEdition);
 
                 return _cmdAnnuler;
             }
@@ -89,8 +98,19 @@ namespace SaisieDeTaches
 
         private void AnnulerTache(object parameter)
         {
-
+            ModeEdit = ModesEdition.Consultation;
         }
+
+
+        private bool ActiverEdition(object o)
+        {
+            return ModeEdit == ModesEdition.Edition;
+        }
+        private bool ActiverConsultation(object o)
+        {
+            return ModeEdit == ModesEdition.Consultation;
+        }
+
 
 
     }

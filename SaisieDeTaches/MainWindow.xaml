@@ -6,31 +6,34 @@
         xmlns:local="clr-namespace:SaisieDeTaches"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
+    <Window.Resources>
+        <local:ConvModeEditActivation x:Key="ConvModeEditActivation"/>
+    </Window.Resources>
     <DockPanel>
         <Expander DockPanel.Dock="Right" ExpandDirection="Left" BorderBrush="Lavender" BorderThickness="2">
             <DockPanel >
                 <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
-                    <Button Content="+" Width="30" Height="30" Command="{Binding CmdAjouter}"/>
-                    <Button Content="&#x2212;" Width="30" Height="30" Command="{Binding CmdSupprimer}"/>
-                    <Button Content="&#x2713;" Width="30" Height="30" Command="{Binding CmdEnregistrer}"/>
-                    <Button Content="&#x21b6;" Width="30" Height="30" Command="{Binding CmdAnnuler}"/>
+                    <Button Name="BtnAjout" Content="+" Width="30" Height="30" Command="{Binding CmdAjouter}"/>
+                    <Button Name="BtnSupp" Content="&#x2212;" Width="30" Height="30" Command="{Binding CmdSupprimer}"/>
+                    <Button Name="BtnEnre" Content="&#x2713;" Width="30" Height="30" Command="{Binding CmdEnregistrer}"/>
+                    <Button Name="BtnAnnul" Content="&#x21b6;" Width="30" Height="30" Command="{Binding CmdAnnuler}"/>
                 </StackPanel>
                 <DockPanel DockPanel.Dock="Top" Margin="5">
-                    <TextBlock DockPanel.Dock="Left">Tâche N°3</TextBlock>
-                    <TextBlock HorizontalAlignment="Right">crée le 17/01/2017</TextBlock>
+                    <TextBlock DockPanel.Dock="Left" Text="{Binding Path=Taches/Id, StringFormat='Tache N°: {0}'}"/>
+                    <TextBlock HorizontalAlignment="Right" Text="{Binding Path=Taches/Creation, StringFormat='Crée le {0:dd/MM/yyy}'}"/>
                 </DockPanel>
                 <TextBlock DockPanel.Dock="Top" Margin="5">Echéance</TextBlock>
-                <DatePicker DockPanel.Dock="Top" Margin="5,0,5,5"/>
+                <DatePicker DockPanel.Dock="Top" Margin="5,0,5,5" SelectedDate="{Binding Path=Taches/Term}" IsEnabled="{Binding ModeEdit, Converter={StaticResource ConvModeEditActivation}}"/>
                 <DockPanel DockPanel.Dock="Top" Margin="5">
                     <TextBlock Text="Priorité " DockPanel.Dock="Left"/>
-                    <TextBox Text="2" DockPanel.Dock="Left"/>
-                    <CheckBox Content="fait" HorizontalAlignment="Right"/>
+                    <TextBox Text="{Binding Path=Taches/Prio}" DockPanel.Dock="Left"/>
+                    <CheckBox Content="Fait" HorizontalAlignment="Right" IsChecked="{Binding Path=Taches/Fait}"/>
                 </DockPanel>
-                <TextBox Text="Blabla" Width="250" Margin="5"/>
+                <TextBox Text="{Binding Path=Taches/Description}" Width="250" Margin="5" TextWrapping="Wrap" IsEnabled="{Binding ElementName=BtnEnre, Path=IsEnabled}"/>
             </DockPanel>
         </Expander>
         <TextBlock DockPanel.Dock="Top">Liste des tâches</TextBlock>
-        <ListView ItemsSource="{Binding Taches}">
+        <ListView ItemsSource="{Binding Taches}" IsSynchronizedWithCurrentItem="True">
             <ListView.View>
                 <GridView>
                     <GridViewColumn DisplayMemberBinding="{Binding Id}" Header="Id"/>

@@ -22,5 +22,14 @@ namespace SaisieDeTaches
 
             return LstTaches;
         }
+
+        public static void EnregistrerTaches(List<Tache> Taches)
+        {
+            XmlSerializer serializer = new XmlSerializer(typeof(List<Tache>), new XmlRootAttribute("Taches"));
+            using (var srt = new StreamWriter(@"..\..\Taches.xml"))
+            {
+                serializer.Serialize(srt, Taches);
+            }
+        }
     }
 }

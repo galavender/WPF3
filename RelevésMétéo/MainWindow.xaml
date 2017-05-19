@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:RelevésMétéo"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525" Name="window">
+        Title="MainWindow" Height="500" Width="600" Name="window">
     <Window.Resources>
         <local:LstNameToDetailsNameConverter x:Key="LstNameToDetailsNameConverter"/>
         <local:DoubleToColorBrushConverter x:Key="DoubleToColorBrushConverter"/>
@@ -102,34 +102,50 @@
                 </TextBlock>
             </Grid>
         </ContentControl>
-
+        <DataTemplate x:Key="GroupeAnnee">
+            <TextBlock Background="LightSteelBlue" FontWeight="Bold" Text="{Binding Path=Name}"/>
+        </DataTemplate>
     </Window.Resources>
 
-        <DockPanel>
-            <DockPanel DockPanel.Dock="Top">
-                <Button Name="BtnPath" Content="..." DockPanel.Dock="Right" Width="50"/>
-                <TextBox Name="TbPath"/>
-            </DockPanel>
-            <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
-                <TextBlock Text="Vue "/>
-                <ComboBox Name="CBMétéo" SelectedValuePath="Tag">
-                    <ComboBoxItem Content="Vignettes" IsSelected="True" Tag="ListMétéo"/>
-                    <ComboBoxItem Content="Groupée par année"  Tag="ListMétéo2"/>
-                </ComboBox>
-            </StackPanel>
-            <Grid DockPanel.Dock="Bottom" >
-                <ContentControl Content="{StaticResource DétailVignettes}" Visibility="{Binding ElementName=CBMétéo, Path=SelectedValue, 
+    <DockPanel>
+        <DockPanel DockPanel.Dock="Top">
+            <Button Name="BtnPath" Content="..." DockPanel.Dock="Right" Width="50"/>
+            <TextBox Name="TbPath"/>
+        </DockPanel>
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+            <TextBlock Text="Vue "/>
+            <ComboBox Name="CBMétéo" Width="150" SelectedValuePath="Tag">
+                <ComboBoxItem Content="Vignettes" IsSelected="True" Tag="ListMétéo"/>
+                <ComboBoxItem Content="Groupée par année"  Tag="ListMétéo2"/>
+            </ComboBox>
+            <TextBlock Text="Trier par "/>
+            <ComboBox Name="CBTrie" Width="120" SelectedValuePath="Tag">
+                <ComboBoxItem Content="Mois" IsSelected="True" Tag="Mois"/>
+                <ComboBoxItem Content="TMin" Tag="TMin"/>
+                <ComboBoxItem Content="TMax" Tag="TMax"/>
+                <ComboBoxItem Content="Précipitations" Tag="Précipitations"/>
+                <ComboBoxItem Content="Ensoleillement" Tag="Ensoleillement"/>
+            </ComboBox>
+            <ComboBox Name="CBOrdreTrie" SelectedValuePath="Tag">
+                <ComboBoxItem Content="&#x23F6;" IsSelected="True" Tag="asc" />
+                <ComboBoxItem Content="&#x23F7;" Tag="des"/>
+            </ComboBox>
+        </StackPanel>
+        <Grid DockPanel.Dock="Bottom" >
+            <ContentControl Content="{StaticResource DétailVignettes}" Visibility="{Binding ElementName=CBMétéo, Path=SelectedValue, 
                                                                                 Converter={StaticResource LstNameToDetailsNameConverter}, ConverterParameter='DétailVignettes'}"/>
 
-                <ContentControl Content="{Binding Data}" ContentTemplate="{StaticResource ListMétéo}" Visibility="{Binding ElementName=CBMétéo, Path=SelectedValue, 
+            <ContentControl Content="{Binding Data}" ContentTemplate="{StaticResource ListMétéo}" Visibility="{Binding ElementName=CBMétéo, Path=SelectedValue, 
                                                                                 Converter={StaticResource LstNameToDetailsNameConverter}, ConverterParameter='ListMétéo'}"/>
-            </Grid>
-                
+        </Grid>
 
-                <ListBox Name="LstBoxMétéo" ItemsSource="{Binding Data}" ItemTemplate="{StaticResource ListMétéo}" IsSynchronizedWithCurrentItem="True">
 
-                </ListBox>
+        <ListBox Name="LstBoxMétéo" ItemsSource="{Binding Data}" ItemTemplate="{StaticResource ListMétéo}" IsSynchronizedWithCurrentItem="True">
+            <ListBox.GroupStyle>
+                <GroupStyle HeaderTemplate="{StaticResource GroupeAnnee}"/>
+            </ListBox.GroupStyle>
+        </ListBox>
 
-        </DockPanel>
+    </DockPanel>
 
 </Window>
